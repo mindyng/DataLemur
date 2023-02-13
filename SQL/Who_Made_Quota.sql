@@ -43,9 +43,19 @@
 
 --join tables on employee_id
 --create met quota flag
+--join tables on employee_id
+--aggregate deal_size by employee_id
+--create met quota flag
+WITH cte AS (
 SELECT employee_id
-, CASE WHEN deal_size >= quota THEN 'yes' ELSE 'no' END AS made_quota
+, SUM(deal_size) AS total_deal
 FROM deals
 JOIN sales_quotas
-on deals.employee_id = sales_quotas.employee_id
+ON deals.employee_id = sales_quotas.employee_id
+GROUP BY 1
+)
+
+SELECT employee_id
+CASE WHEN total_deal >= quota THEN 'yes' ELSE 'no' END AS made_quota
+FROM cte 
 ORDER BY 1
