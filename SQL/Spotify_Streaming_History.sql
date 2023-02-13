@@ -50,6 +50,11 @@
 -- User 777 has listened to the song_id 1238 for 12 times which is 11 times historically and 1 time within the week.
 -- User 695's streaming of the song_id 9852 is excluded from the output because the streaming date on 8 August 2022 is out of the question requirement.
 
+--big idea: per user get historial and current wks song count of songs up to 8.4.22
+--COUNT weekly songs per user only up to 8.4.22
+--union ALL (historical and weekly count of song/user can be the same) both tables
+--SUM song counts per user
+
 WITH cte AS (
 SELECT user_id
 , song_id
