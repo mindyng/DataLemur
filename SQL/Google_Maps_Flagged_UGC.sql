@@ -47,18 +47,14 @@
 --join to place_info
 --count place_category
 --output top count (if tie, order place category alphabetically)
-WITH targeted_content AS (
-SELECT place_id
-FROM maps_ugc_review
-WHERE content_tag = 'Off-topic'
-)
 
-, place_cat_cnt AS (
+WITH place_cat_cnt AS (
 SELECT place_category
 , COUNT(*) AS place_cat_cnt
 FROM place_info
-JOIN targeted_content
-ON place_info.place_id = targeted_content.place_id
+JOIN maps_ugc_review
+ON place_info.place_id = maps_ugc_review.place_id
+WHERE content_tag = 'Off-topic'
 GROUP BY 1
 )
 
